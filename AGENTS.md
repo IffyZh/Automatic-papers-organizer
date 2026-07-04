@@ -55,7 +55,7 @@ Do **not** introduce these unless a later task explicitly asks for them:
 - a polished GUI before the storage and retrieval chain works;
 - destructive deletion of footnotes, headers, footers, page numbers, or raw OCR text.
 
-## 5. Dependency policy
+## 5. Dependency and environment policy
 
 This project starts small on purpose.
 
@@ -64,6 +64,12 @@ This project starts small on purpose.
 - Explain every new dependency in the pull request description.
 - Do not install heavy OCR/PDF libraries during the bootstrap task.
 - Do not add a dependency merely because it might be useful in a future phase.
+- The project development target is Python 3.11.x.
+- Use the repository-local virtual environment at `.venv` for all installs, tests, checks, and project commands.
+- Before work, verify `.venv\Scripts\python.exe --version` and `.venv\Scripts\python.exe -m pip --version`.
+- Do not use bare `python`, `pip`, `pytest`, or `ruff` unless it is already proven to point at this repository's `.venv`.
+- Do not create a second virtual environment unless a task explicitly requires it.
+- See `docs/00_project_control/DEVELOPMENT_ENVIRONMENT.md` for beginner-oriented setup instructions.
 
 ## 6. Engineering rules
 
@@ -83,7 +89,8 @@ For every task:
 1. Read this `AGENTS.md`.
 2. Read the named task document under `docs/00_project_control/`.
 3. Read only the referenced parts of `README.md`.
-4. Inspect the current repository tree.
-5. Implement no more than the task allows.
+4. Read `docs/00_project_control/DEVELOPMENT_ENVIRONMENT.md` when the task runs commands or installs dependencies.
+5. Inspect the current repository tree.
+6. Implement no more than the task allows.
 
 If the task conflicts with this file, stop and report the conflict rather than guessing.
