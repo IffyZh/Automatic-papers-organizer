@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tracedoc"
+version = "0.1.0"
+description = "Local-first document evidence parsing and retrieval tools."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+include = ["tracedoc*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88

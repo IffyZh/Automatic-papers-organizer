@@ -1,0 +1,25 @@
+# Python bytecode and test caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Local environments and secrets
+.venv/
+venv/
+.env
+
+# Runtime data generated locally
+data/raw/
+data/rendered_pages/
+data/parser_outputs/
+data/review_exports/
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Logs and temporary files
+*.log
+tmp/
+.cache/
