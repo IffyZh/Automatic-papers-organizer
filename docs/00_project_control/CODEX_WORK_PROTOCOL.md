@@ -39,6 +39,7 @@
 1. AGENTS.md
 2. 本次任务书：<任务书路径>
 3. README.md 中任务书指定的章节
+4. docs/00_project_control/DEVELOPMENT_ENVIRONMENT.md（若本任务会运行命令或安装依赖）
 
 暂时不要修改文件、不要安装依赖。
 先用自己的话列出：
@@ -58,11 +59,20 @@
 ```text
 你的理解正确。现在只实施任务书中的内容。
 请遵守 AGENTS.md，不要自行扩大范围。
+
+开始前必须执行：
+.\.venv\Scripts\python.exe --version
+.\.venv\Scripts\python.exe -m pip --version
+
+后续所有安装、测试、静态检查和项目命令必须使用：
+.\.venv\Scripts\python.exe -m ...
+
 完成后运行任务书指定的检查，并汇报：
 1. 修改了哪些文件；
 2. 新增了哪些依赖；
 3. 运行了哪些命令及结果；
-4. 哪些事情明确留到以后再做。
+4. 使用的 Python 版本和解释器路径；
+5. 哪些事情明确留到以后再做。
 ```
 
 ### Step 3：用独立分支和 Pull Request（PR）交付
@@ -109,13 +119,15 @@ feat/p0-3-core-protocols
 
 本项目当前刻意选择轻量路线：
 
-- 使用 Windows 原生 Python；
-- 使用现有 Conda 环境或普通虚拟环境；
+- 使用 Windows 原生 Python 3.11.x；
+- 使用仓库根目录的 `.venv` 作为唯一项目开发环境；
 - 使用 Python 自带 SQLite；
 - 第一阶段不需要 Docker、Oracle、PostgreSQL、Qdrant、Redis、WSL 或本地大模型；
 - OCR 和 PDF 解析库也应在对应阶段才加入，不在项目创建时一次装齐。
 
 “以后可能会用”不是现在加入依赖的理由。
+
+关于 `.venv` 的创建、验证和日常命令，见 `DEVELOPMENT_ENVIRONMENT.md`。
 
 ## 五、任务书模板
 
@@ -134,37 +146,53 @@ feat/p0-3-core-protocols
 - `AGENTS.md`
 - 本任务书
 - `README.md` 的第 <章节号> 节
+- `docs/00_project_control/DEVELOPMENT_ENVIRONMENT.md`（若本任务会运行命令或安装依赖）
 
-## 3. 目标
+## 3. 开始前：确认项目环境
+
+本项目只使用仓库根目录的 `.venv`。开始前必须运行：
+
+```powershell
+.\.venv\Scripts\python.exe --version
+.\.venv\Scripts\python.exe -m pip --version
+```
+
+验收报告必须写出实际 Python 版本和解释器路径。
+
+不得使用裸 `python`、`pip`、`pytest` 或 `ruff`，除非已经证明它们指向本项目的 `.venv`。
+
+## 4. 目标
 
 <完成后用户能做什么？>
 
-## 4. 允许修改
+## 5. 允许修改
 
 - <文件或目录>
 
-## 5. 明确禁止
+## 6. 明确禁止
 
 - <不要做的内容>
 
-## 6. 依赖限制
+## 7. 依赖限制
 
 - <允许新增的依赖；若没有，写“不得新增运行时依赖”>
+- 所有安装必须通过 `.\.venv\Scripts\python.exe -m pip ...` 完成。
 
-## 7. 验收标准
+## 8. 验收标准
 
 - [ ] <可检查的结果 1>
 - [ ] <可检查的结果 2>
 
-## 8. 测试与命令
+## 9. 测试与命令
 
-```text
-<必须运行的命令>
+```powershell
+# 在这里填写本任务的项目命令；每条都必须使用 .venv 内的 Python
+.\.venv\Scripts\python.exe -m <command>
 ```
 
-## 9. 交付要求
+## 10. 交付要求
 
 - 在分支 `<branch-name>` 中完成。
 - 创建指向 `main` 的 PR。
-- PR 描述中说明：改动、依赖、测试结果、未做事项。
+- PR 描述中说明：改动、依赖、测试结果、实际 Python 版本与解释器路径、未做事项。
 ```
