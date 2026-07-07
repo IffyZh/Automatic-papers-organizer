@@ -1,4 +1,63 @@
-# Gold Set
+# 微型 Gold Set
 
-This directory will document the small, reviewed sample set used by later phases.
-P0-1 does not add real documents or generated outputs.
+> 这里保存的是 TraceDoc 用来判断“提取、OCR、页面路由和分块是否可靠”的**标注规则与文本模板**。真实 PDF、页面图像、OCR 输出与数据库不放进 Git。
+
+## 这个目录是做什么的？
+
+它不是文献仓库，也不是某个 PDF 工具的输出目录。
+
+它保存的是：
+
+- 我们挑了哪些页面作为测试题；
+- 人工确认这些页面属于哪种输入类型；
+- 页面里有哪些正文、脚注、边栏、表格或其他对象；
+- 哪些短文本片段是人工确认过的；
+- 页面哪里有歧义、需要审核或不应该自动相信；
+- 什么样的安全规范化是允许的、什么样的清洗是禁止的。
+
+## 文件说明
+
+| 文件 | 作用 |
+|---|---|
+| `manifest.template.jsonl` | 每一页样本一行：来源、页码、输入类型、风险标签、为什么选择它。 |
+| `annotations.template.jsonl` | 每一页样本一行：人工路由结论、页面对象、PageBlock、可选 bbox、人工确认片段。 |
+| `normalization_cases.template.jsonl` | 小型规范化测试：原始文本是什么，哪些变化安全，哪些变化不允许。 |
+| `ANNOTATION_GUIDE.md` | 人工标注说明，避免以后标准漂移。 |
+
+## 真实文件应放在哪里？
+
+本机目录建议：
+
+```text
+data/raw/gold_set/                 # 原始 PDF
+data/rendered_pages/gold_set/      # 以后生成的页面图
+data/parser_outputs/gold_set/      # P1 的原始提取/OCR结果
+```
+
+这些路径已被 Git 忽略。不要把 PDF、截图、OCR 文本、大型模型或 SQLite 数据库上传到 GitHub。
+
+## 建议的第一批样本
+
+目标不是马上达到大规模 Gold Set，而是先挑 **24–40 个页面**，覆盖：
+
+- 排版较好的原生文本 PDF；
+- 排版较差、字体映射/阅读顺序/断词可能有问题的原生文本 PDF；
+- 扫描 PDF；
+- 有文本层但不可信的扫描 PDF；
+- 脚注、尾注、页眉页脚、页码、标题、跨页段落候选；
+- 至少一页表格、图注或边栏；
+- 可见外部链接或无效链接文字（只记录版面存在，不验证网络链接）。
+
+## 现在不做什么？
+
+本阶段不：
+
+- 安装或选择 PDF/OCR 库；
+- 批量提取 PDF；
+- 自动 OCR；
+- 自动分块；
+- 创建 SQLite/FTS5 索引；
+- 向量化、embedding 或向量数据库；
+- 对完整页面做逐字人工转录。
+
+这些功能将在 P1 用同一份 Gold Set 比较。
